@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Eye Blackout - Useless App</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; overflow: hidden;
+    background: #111; height: 100%; width: 100%;
+  }
+  #blackout {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #000; z-index: 10; display: none;
+  }
+  #status {
+    position: fixed; bottom: 12px; left: 12px; color: #0f0;
+    font-family: monospace; font-size: 12px; z-index: 20;
+    background: rgba(0,0,0,0.6); padding: 6px 10px; border-radius: 6px;
+    max-width: 80vw;
+  }
+  video { display: none; }
+</style>
+</head>
+<body>
+
+<video id="video" playsinline></video>
+<div id="blackout"></div>
+<div id="status">Loading model...</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+<script>
+const videoElement = document.getElementById('video');
+const blackout = document.getElementById('blackout');
+const statusEl = document.getElementById('status');
+
+function dist(a, b) {
+  return Math.hypot(a.x - b.x, a.y - b.y);
+}
+
+// Eye Aspect Ratio: higher = more open, lower = more closed
+function eyeAspectRatio(landmarks, idx) {
+  const [p1, p2, p3, p4, p5, p6] = idx.map(i => landmarks[i]);
+  const vertical = dist(p2, p6) + dist(p3, p5);
+  const horizontal = dist(p1, p4) * 2;
+  return vertical / horizontal;
+}
+
+// MediaPipe FaceMesh 468-point landmark indices for each eye
+const LEFT_EYE  = [33, 160, 158, 133, 153, 144];
+const RIGHT_EYE = [362, 385, 387, 263, 373, 380];
+const EAR_THRESHOLD = 0.22; // tweak this if it's too sensitive/not sensitive enough
+
+const faceMesh = new FaceMesh({
+  locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
+});
+
+faceMesh.setOptions({
+  maxNumFaces: 1,
+  refineLandmarks: true,
+  minDetectionConfidence: 0.5,
+  minTrackingConfidence: 0.5
+});
+
+faceMesh.onResults((results) => {
+  if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
+    const landmarks = results.multiFaceLandmarks[0];
+    const leftEAR = eyeAspectRatio(landmarks, LEFT_EYE);
+    const rightEAR = eyeAspectRatio(landmarks, RIGHT_EYE);
+    const avgEAR = (leftEAR + rightEAR) / 2;
+
+    if (avgEAR > EAR_THRESHOLD) {
+      // Eyes open -> black screen
+      blackout.style.display = 'block';
+      statusEl.textContent = `Eyes OPEN (EAR ${avgEAR.toFixed(2)}) -> blackout`;
+    } else {
+      // Eyes closed -> normal screen
+      blackout.style.display = 'none';
+      statusEl.textContent = `Eyes CLOSED (EAR ${avgEAR.toFixed(2)}) -> normal`;
+    }
+  } else {
+    blackout.style.display = 'none';
+    statusEl.textContent = 'No face detected -> normal';
+  }
+});
+
+const camera = new Camera(videoElement, {
+  onFrame: async () => {
+    await faceMesh.send({ image: videoElement });
+  },
+  width: 320,
+  height: 240,
+  facingMode: 'user'
+});
+
+camera.start()
+  .then(() => { statusEl.textContent = 'Running...'; })
+  .catch(err => { statusEl.textContent = 'Camera error: ' + err.message; });
+</script>
+
+</body>
+</html>

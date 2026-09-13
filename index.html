@@ -9,9 +9,27 @@
     margin: 0; padding: 0; overflow: hidden;
     background: #111; height: 100%; width: 100%;
   }
-  #blackout {
+  #blackout, #restscreen {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: #000; z-index: 10; display: none;
+    display: none; z-index: 10;
+  }
+  #blackout {
+    background: #000;
+  }
+  #restscreen {
+    background: #ffffff;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: -apple-system, sans-serif;
+    color: #222;
+  }
+  #restscreen svg {
+    width: 140px; height: 140px; margin-bottom: 16px;
+  }
+  #restscreen p {
+    font-size: 20px; font-weight: 600; margin: 0; padding: 0 20px;
   }
   #status {
     position: fixed; bottom: 12px; left: 12px; color: #0f0;
@@ -25,7 +43,22 @@
 <body>
 
 <video id="video" playsinline></video>
+
 <div id="blackout"></div>
+
+<div id="restscreen">
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="80" fill="none" stroke="#222" stroke-width="4"/>
+    <path d="M60 95 Q70 105 80 95" fill="none" stroke="#222" stroke-width="4" stroke-linecap="round"/>
+    <path d="M120 95 Q130 105 140 95" fill="none" stroke="#222" stroke-width="4" stroke-linecap="round"/>
+    <path d="M75 135 Q100 150 125 135" fill="none" stroke="#222" stroke-width="4" stroke-linecap="round"/>
+    <text x="140" y="55" font-size="20" fill="#222" font-family="sans-serif">Z</text>
+    <text x="155" y="40" font-size="16" fill="#222" font-family="sans-serif">z</text>
+    <text x="167" y="28" font-size="12" fill="#222" font-family="sans-serif">z</text>
+  </svg>
+  <p>Ahh , Poda vaazhe🤡</p>
+</div>
+
 <div id="status">Loading model...</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
@@ -33,13 +66,13 @@
 <script>
 const videoElement = document.getElementById('video');
 const blackout = document.getElementById('blackout');
+const restscreen = document.getElementById('restscreen');
 const statusEl = document.getElementById('status');
 
 function dist(a, b) {
   return Math.hypot(a.x - b.x, a.y - b.y);
 }
 
-// Eye Aspect Ratio: higher = more open, lower = more closed
 function eyeAspectRatio(landmarks, idx) {
   const [p1, p2, p3, p4, p5, p6] = idx.map(i => landmarks[i]);
   const vertical = dist(p2, p6) + dist(p3, p5);
@@ -47,10 +80,18 @@ function eyeAspectRatio(landmarks, idx) {
   return vertical / horizontal;
 }
 
-// MediaPipe FaceMesh 468-point landmark indices for each eye
 const LEFT_EYE  = [33, 160, 158, 133, 153, 144];
 const RIGHT_EYE = [362, 385, 387, 263, 373, 380];
-const EAR_THRESHOLD = 0.22; // tweak this if it's too sensitive/not sensitive enough
+const EAR_THRESHOLD = 0.22;
+
+function showBlackout() {
+  blackout.style.display = 'block';
+  restscreen.style.display = 'none';
+}
+function showRestScreen() {
+  blackout.style.display = 'none';
+  restscreen.style.display = 'flex';
+}
 
 const faceMesh = new FaceMesh({
   locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
@@ -71,17 +112,15 @@ faceMesh.onResults((results) => {
     const avgEAR = (leftEAR + rightEAR) / 2;
 
     if (avgEAR > EAR_THRESHOLD) {
-      // Eyes open -> black screen
-      blackout.style.display = 'block';
+      showBlackout();
       statusEl.textContent = `Eyes OPEN (EAR ${avgEAR.toFixed(2)}) -> blackout`;
     } else {
-      // Eyes closed -> normal screen
-      blackout.style.display = 'none';
-      statusEl.textContent = `Eyes CLOSED (EAR ${avgEAR.toFixed(2)}) -> normal`;
+      showRestScreen();
+      statusEl.textContent = `Eyes CLOSED (EAR ${avgEAR.toFixed(2)}) -> resting`;
     }
   } else {
-    blackout.style.display = 'none';
-    statusEl.textContent = 'No face detected -> normal';
+    showRestScreen();
+    statusEl.textContent = 'No face detected -> resting';
   }
 });
 

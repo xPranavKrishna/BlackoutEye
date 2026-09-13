@@ -17,35 +17,100 @@
     background: #000;
   }
   #restscreen {
-    background: #ffffff;
+    background: #fffdf7;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   }
-  .clown-doodle {
+
+  /* confetti background */
+  .confetti {
     position: absolute;
-    width: 70px;
-    height: 70px;
-    z-index: 0;
-    opacity: 0.9;
+    border-radius: 3px;
+    opacity: 0.85;
+    animation: floatUp linear infinite;
   }
-  .content {
+  @keyframes floatUp {
+    0%   { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-120vh) rotate(360deg); }
+  }
+
+  /* card */
+  .card {
     position: relative;
     z-index: 1;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    display: flex;
+    background: #ffffff;
+    border: 4px solid #222;
+    border-radius: 28px;
+    padding: 28px 30px 24px;
+    box-shadow: 8px 8px 0px #222;
+    transform: rotate(-2deg);
   }
-  .content svg#face {
-    width: 170px; height: 170px;
-    margin-bottom: 12px;
+
+  #face {
+    width: 150px;
+    height: 150px;
+    animation: bounce 1.4s ease-in-out infinite;
   }
-  .content p {
-    font-size: 20px; font-weight: 600; margin: 0; padding: 0 20px;
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50%      { transform: translateY(-10px) rotate(2deg); }
+  }
+
+  .bubble {
+    margin-top: 6px;
+    background: #ffd54f;
+    border: 3px solid #222;
+    border-radius: 16px;
+    padding: 10px 18px;
     font-family: -apple-system, sans-serif;
+    font-weight: 800;
+    font-size: 19px;
     color: #222;
+    transform: rotate(2deg);
+    position: relative;
   }
+  .bubble::after {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 0 8px 12px 8px;
+    border-style: solid;
+    border-color: transparent transparent #222 transparent;
+  }
+  .bubble::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 0 6px 9px 6px;
+    border-style: solid;
+    border-color: transparent transparent #ffd54f transparent;
+    z-index: 1;
+  }
+
+  .clown-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .clown-row svg {
+    width: 34px;
+    height: 34px;
+  }
+  .clown-row svg:nth-child(odd) {
+    transform: rotate(-8deg);
+  }
+  .clown-row svg:nth-child(even) {
+    transform: rotate(8deg);
+  }
+
   #status {
     position: fixed; bottom: 12px; left: 12px; color: #0f0;
     font-family: monospace; font-size: 12px; z-index: 20;
@@ -61,7 +126,6 @@
 
 <div id="blackout"></div>
 
-<!-- reusable clown face shape -->
 <svg width="0" height="0" style="position:absolute">
   <defs>
     <g id="clownFace">
@@ -79,23 +143,36 @@
 
 <div id="restscreen">
 
-  <!-- scattered clown faces around the screen -->
-  <svg class="clown-doodle" style="top:6%; left:8%; transform:rotate(-8deg);" viewBox="0 0 120 120"><use href="#clownFace"/></svg>
-  <svg class="clown-doodle" style="top:10%; right:6%; transform:rotate(12deg) scale(0.8);" viewBox="0 0 120 120"><use href="#clownFace"/></svg>
-  <svg class="clown-doodle" style="bottom:8%; left:12%; transform:rotate(5deg) scale(1.1);" viewBox="0 0 120 120"><use href="#clownFace"/></svg>
-  <svg class="clown-doodle" style="bottom:6%; right:10%; transform:rotate(-15deg) scale(0.9);" viewBox="0 0 120 120"><use href="#clownFace"/></svg>
-  <svg class="clown-doodle" style="top:42%; left:3%; transform:rotate(3deg) scale(0.7);" viewBox="0 0 120 120"><use href="#clownFace"/></svg>
+  <!-- confetti, generated as simple styled divs -->
+  <div class="confetti" style="left:8%;  width:10px; height:10px; background:#ff7043; animation-duration:4.2s; animation-delay:0s;   bottom:-10px;"></div>
+  <div class="confetti" style="left:20%; width:8px;  height:8px;  background:#42a5f5; animation-duration:3.4s; animation-delay:0.6s; bottom:-10px;"></div>
+  <div class="confetti" style="left:35%; width:12px; height:12px; background:#ffd54f; animation-duration:5s;   animation-delay:1.2s; bottom:-10px;"></div>
+  <div class="confetti" style="left:50%; width:9px;  height:9px;  background:#66bb6a; animation-duration:3.9s; animation-delay:0.3s; bottom:-10px;"></div>
+  <div class="confetti" style="left:65%; width:11px; height:11px; background:#ab47bc; animation-duration:4.6s; animation-delay:0.9s; bottom:-10px;"></div>
+  <div class="confetti" style="left:78%; width:8px;  height:8px;  background:#ef5350; animation-duration:3.7s; animation-delay:1.5s; bottom:-10px;"></div>
+  <div class="confetti" style="left:90%; width:10px; height:10px; background:#26c6da; animation-duration:4.9s; animation-delay:0.2s; bottom:-10px;"></div>
+  <div class="confetti" style="left:14%; width:9px;  height:9px;  background:#ffa726; animation-duration:4.1s; animation-delay:1.8s; bottom:-10px;"></div>
+  <div class="confetti" style="left:58%; width:10px; height:10px; background:#7e57c2; animation-duration:4.4s; animation-delay:0.7s; bottom:-10px;"></div>
+  <div class="confetti" style="left:84%; width:8px;  height:8px;  background:#ec407a; animation-duration:3.6s; animation-delay:1.1s; bottom:-10px;"></div>
 
-  <div class="content">
-    <!-- laughing face -->
+  <div class="card">
     <svg id="face" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="100" cy="100" r="80" fill="none" stroke="#222" stroke-width="4"/>
+      <circle cx="100" cy="100" r="80" fill="#fff9e6" stroke="#222" stroke-width="4"/>
       <path d="M55 85 Q70 68 85 85" fill="none" stroke="#222" stroke-width="6" stroke-linecap="round"/>
       <path d="M115 85 Q130 68 145 85" fill="none" stroke="#222" stroke-width="6" stroke-linecap="round"/>
       <ellipse cx="100" cy="138" rx="38" ry="26" fill="#222"/>
       <ellipse cx="100" cy="150" rx="18" ry="10" fill="#e57373"/>
+      <circle cx="55" cy="105" r="10" fill="#ffb3ba" opacity="0.7"/>
+      <circle cx="145" cy="105" r="10" fill="#ffb3ba" opacity="0.7"/>
     </svg>
-    <p>Ahh, nee oru VAAZHA 🤡</p>
+
+    <div class="bubble">Ahh, nee oru VAAZHA 🤡</div>
+
+    <div class="clown-row">
+      <svg viewBox="0 0 120 120"><use href="#clownFace"/></svg>
+      <svg viewBox="0 0 120 120"><use href="#clownFace"/></svg>
+      <svg viewBox="0 0 120 120"><use href="#clownFace"/></svg>
+    </div>
   </div>
 
 </div>

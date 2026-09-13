@@ -24,6 +24,7 @@
   .banana-tree {
     position: absolute;
     width: 70px;
+    height: 100px;
     z-index: 0;
     opacity: 0.9;
   }
@@ -59,53 +60,45 @@
 
 <div id="blackout"></div>
 
+<!-- reusable banana plant shape: thick stem + fanned blade leaves with midribs -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="bananaPlant">
+      <path d="M60 200 C55 170 58 140 70 120 C82 140 85 170 80 200 Z" fill="#9ccc65"/>
+      <g transform="translate(70,120)">
+        <g transform="rotate(-70)">
+          <path d="M0 0 C-14 -20 -10 -55 0 -70 C10 -55 14 -20 0 0 Z" fill="#388e3c"/>
+          <path d="M0 0 C-2 -25 -1 -50 0 -68" stroke="#1b5e20" stroke-width="1.5" fill="none"/>
+        </g>
+        <g transform="rotate(70)">
+          <path d="M0 0 C-14 -20 -10 -55 0 -70 C10 -55 14 -20 0 0 Z" fill="#388e3c"/>
+          <path d="M0 0 C-2 -25 -1 -50 0 -68" stroke="#1b5e20" stroke-width="1.5" fill="none"/>
+        </g>
+        <g transform="rotate(-35)">
+          <path d="M0 0 C-14 -20 -10 -55 0 -70 C10 -55 14 -20 0 0 Z" fill="#4caf50"/>
+          <path d="M0 0 C-2 -25 -1 -50 0 -68" stroke="#1b5e20" stroke-width="1.5" fill="none"/>
+        </g>
+        <g transform="rotate(35)">
+          <path d="M0 0 C-14 -20 -10 -55 0 -70 C10 -55 14 -20 0 0 Z" fill="#4caf50"/>
+          <path d="M0 0 C-2 -25 -1 -50 0 -68" stroke="#1b5e20" stroke-width="1.5" fill="none"/>
+        </g>
+        <g transform="rotate(0)">
+          <path d="M0 0 C-14 -20 -10 -55 0 -70 C10 -55 14 -20 0 0 Z" fill="#66bb6a"/>
+          <path d="M0 0 C-2 -25 -1 -50 0 -68" stroke="#1b5e20" stroke-width="1.5" fill="none"/>
+        </g>
+      </g>
+    </g>
+  </defs>
+</svg>
+
 <div id="restscreen">
 
-  <!-- scattered banana trees, no fruit, green -->
-  <svg class="banana-tree" style="top:6%; left:8%; transform:rotate(-8deg);" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
-    <path d="M50 140 C48 100 52 70 50 40" stroke="#2e7d32" stroke-width="6" fill="none" stroke-linecap="round"/>
-    <path d="M50 40 C20 30 5 5 20 -10 C40 0 52 25 50 40 Z" fill="#4caf50"/>
-    <path d="M50 40 C80 30 95 5 80 -10 C60 0 48 25 50 40 Z" fill="#4caf50"/>
-    <path d="M50 40 C35 15 30 -15 50 -25 C65 -10 60 20 50 40 Z" fill="#66bb6a"/>
-    <path d="M50 40 C25 45 0 60 5 80 C25 75 45 55 50 40 Z" fill="#388e3c"/>
-    <path d="M50 40 C75 45 100 60 95 80 C75 75 55 55 50 40 Z" fill="#388e3c"/>
-  </svg>
-
-  <svg class="banana-tree" style="top:10%; right:6%; transform:rotate(12deg) scale(0.8);" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
-    <path d="M50 140 C48 100 52 70 50 40" stroke="#2e7d32" stroke-width="6" fill="none" stroke-linecap="round"/>
-    <path d="M50 40 C20 30 5 5 20 -10 C40 0 52 25 50 40 Z" fill="#4caf50"/>
-    <path d="M50 40 C80 30 95 5 80 -10 C60 0 48 25 50 40 Z" fill="#4caf50"/>
-    <path d="M50 40 C35 15 30 -15 50 -25 C65 -10 60 20 50 40 Z" fill="#66bb6a"/>
-    <path d="M50 40 C25 45 0 60 5 80 C25 75 45 55 50 40 Z" fill="#388e3c"/>
-    <path d="M50 40 C75 45 100 60 95 80 C75 75 55 55 50 40 Z" fill="#388e3c"/>
-  </svg>
-
-  <svg class="banana-tree" style="bottom:8%; left:12%; transform:rotate(5deg) scale(1.1);" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
-    <path d="M50 140 C48 100 52 70 50 40" stroke="#2e7d32" stroke-width="6" fill="none" stroke-linecap="round"/>
-    <path d="M50 40 C20 30 5 5 20 -10 C40 0 52 25 50 40 Z" fill="#4caf50"/>
-    <path d="M50 40 C80 30 95 5 80 -10 C60 0 48 25 50 40 Z" fill="#4caf50"/>
-    <path d="M50 40 C35 15 30 -15 50 -25 C65 -10 60 20 50 40 Z" fill="#66bb6a"/>
-    <path d="M50 40 C25 45 0 60 5 80 C25 75 45 55 50 40 Z" fill="#388e3c"/>
-    <path d="M50 40 C75 45 100 60 95 80 C75 75 55 55 50 40 Z" fill="#388e3c"/>
-  </svg>
-
-  <svg class="banana-tree" style="bottom:6%; right:10%; transform:rotate(-15deg) scale(0.9);" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
-    <path d="M50 140 C48 100 52 70 50 40" stroke="#2e7d32" stroke-width="6" fill="none" stroke-linecap="round"/>
-    <path d="M50 40 C20 30 5 5 20 -10 C40 0 52 25 50 40 Z" fill="#4caf50"/>
-    <path d="M50 40 C80 30 95 5 80 -10 C60 0 48 25 50 40 Z" fill="#4caf50"/>
-    <path d="M50 40 C35 15 30 -15 50 -25 C65 -10 60 20 50 40 Z" fill="#66bb6a"/>
-    <path d="M50 40 C25 45 0 60 5 80 C25 75 45 55 50 40 Z" fill="#388e3c"/>
-    <path d="M50 40 C75 45 100 60 95 80 C75 75 55 55 50 40 Z" fill="#388e3c"/>
-  </svg>
-
-  <svg class="banana-tree" style="top:42%; left:3%; transform:rotate(3deg) scale(0.7);" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
-    <path d="M50 140 C48 100 52 70 50 40" stroke="#2e7d32" stroke-width="6" fill="none" stroke-linecap="round"/>
-    <path d="M50 40 C20 30 5 5 20 -10 C40 0 52 25 50 40 Z" fill="#4caf50"/>
-    <path d="M50 40 C80 30 95 5 80 -10 C60 0 48 25 50 40 Z" fill="#4caf50"/>
-    <path d="M50 40 C35 15 30 -15 50 -25 C65 -10 60 20 50 40 Z" fill="#66bb6a"/>
-    <path d="M50 40 C25 45 0 60 5 80 C25 75 45 55 50 40 Z" fill="#388e3c"/>
-    <path d="M50 40 C75 45 100 60 95 80 C75 75 55 55 50 40 Z" fill="#388e3c"/>
-  </svg>
+  <!-- scattered banana plants around the screen -->
+  <svg class="banana-tree" style="top:6%; left:8%; transform:rotate(-8deg);" viewBox="0 0 140 200"><use href="#bananaPlant"/></svg>
+  <svg class="banana-tree" style="top:10%; right:6%; transform:rotate(12deg) scale(0.8);" viewBox="0 0 140 200"><use href="#bananaPlant"/></svg>
+  <svg class="banana-tree" style="bottom:8%; left:12%; transform:rotate(5deg) scale(1.1);" viewBox="0 0 140 200"><use href="#bananaPlant"/></svg>
+  <svg class="banana-tree" style="bottom:6%; right:10%; transform:rotate(-15deg) scale(0.9);" viewBox="0 0 140 200"><use href="#bananaPlant"/></svg>
+  <svg class="banana-tree" style="top:42%; left:3%; transform:rotate(3deg) scale(0.7);" viewBox="0 0 140 200"><use href="#bananaPlant"/></svg>
 
   <div class="content">
     <svg id="face" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +110,7 @@
       <text x="155" y="40" font-size="16" fill="#222" font-family="sans-serif">z</text>
       <text x="167" y="28" font-size="12" fill="#222" font-family="sans-serif">z</text>
     </svg>
-    <p>Ahh, resting those eyes 😌</p>
+    <p>Ahh, nee oru VAAZHA 🤡</p>
   </div>
 
 </div>

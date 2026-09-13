@@ -21,10 +21,10 @@
     align-items: center;
     justify-content: center;
   }
-  .banana-tree {
+  .clown-doodle {
     position: absolute;
     width: 70px;
-    height: 100px;
+    height: 70px;
     z-index: 0;
     opacity: 0.9;
   }
@@ -38,10 +38,7 @@
     display: flex;
   }
   .content svg#face {
-    width: 140px; height: 140px; margin-bottom: 12px;
-  }
-  .content svg#clown {
-    width: 80px; height: 80px;
+    width: 170px; height: 170px;
   }
   #status {
     position: fixed; bottom: 12px; left: 12px; color: #0f0;
@@ -58,45 +55,30 @@
 
 <div id="blackout"></div>
 
-<!-- reusable banana plant shape: thick stem + fanned blade leaves with midribs -->
+<!-- reusable clown face shape -->
 <svg width="0" height="0" style="position:absolute">
   <defs>
-    <g id="bananaPlant">
-      <path d="M60 200 C55 170 58 140 70 120 C82 140 85 170 80 200 Z" fill="#9ccc65"/>
-      <g transform="translate(70,120)">
-        <g transform="rotate(-70)">
-          <path d="M0 0 C-14 -20 -10 -55 0 -70 C10 -55 14 -20 0 0 Z" fill="#388e3c"/>
-          <path d="M0 0 C-2 -25 -1 -50 0 -68" stroke="#1b5e20" stroke-width="1.5" fill="none"/>
-        </g>
-        <g transform="rotate(70)">
-          <path d="M0 0 C-14 -20 -10 -55 0 -70 C10 -55 14 -20 0 0 Z" fill="#388e3c"/>
-          <path d="M0 0 C-2 -25 -1 -50 0 -68" stroke="#1b5e20" stroke-width="1.5" fill="none"/>
-        </g>
-        <g transform="rotate(-35)">
-          <path d="M0 0 C-14 -20 -10 -55 0 -70 C10 -55 14 -20 0 0 Z" fill="#4caf50"/>
-          <path d="M0 0 C-2 -25 -1 -50 0 -68" stroke="#1b5e20" stroke-width="1.5" fill="none"/>
-        </g>
-        <g transform="rotate(35)">
-          <path d="M0 0 C-14 -20 -10 -55 0 -70 C10 -55 14 -20 0 0 Z" fill="#4caf50"/>
-          <path d="M0 0 C-2 -25 -1 -50 0 -68" stroke="#1b5e20" stroke-width="1.5" fill="none"/>
-        </g>
-        <g transform="rotate(0)">
-          <path d="M0 0 C-14 -20 -10 -55 0 -70 C10 -55 14 -20 0 0 Z" fill="#66bb6a"/>
-          <path d="M0 0 C-2 -25 -1 -50 0 -68" stroke="#1b5e20" stroke-width="1.5" fill="none"/>
-        </g>
-      </g>
+    <g id="clownFace">
+      <circle cx="15" cy="42" r="15" fill="#ff7043"/>
+      <circle cx="105" cy="42" r="15" fill="#ff7043"/>
+      <circle cx="60" cy="10" r="15" fill="#ff7043"/>
+      <circle cx="60" cy="60" r="42" fill="#fff5e1" stroke="#222" stroke-width="3"/>
+      <circle cx="42" cy="55" r="5" fill="#222"/>
+      <circle cx="78" cy="55" r="5" fill="#222"/>
+      <circle cx="60" cy="70" r="10" fill="#e53935"/>
+      <path d="M35 85 Q60 110 85 85" fill="none" stroke="#e53935" stroke-width="6" stroke-linecap="round"/>
     </g>
   </defs>
 </svg>
 
 <div id="restscreen">
 
-  <!-- scattered banana plants around the screen -->
-  <svg class="banana-tree" style="top:6%; left:8%; transform:rotate(-8deg);" viewBox="0 0 140 200"><use href="#bananaPlant"/></svg>
-  <svg class="banana-tree" style="top:10%; right:6%; transform:rotate(12deg) scale(0.8);" viewBox="0 0 140 200"><use href="#bananaPlant"/></svg>
-  <svg class="banana-tree" style="bottom:8%; left:12%; transform:rotate(5deg) scale(1.1);" viewBox="0 0 140 200"><use href="#bananaPlant"/></svg>
-  <svg class="banana-tree" style="bottom:6%; right:10%; transform:rotate(-15deg) scale(0.9);" viewBox="0 0 140 200"><use href="#bananaPlant"/></svg>
-  <svg class="banana-tree" style="top:42%; left:3%; transform:rotate(3deg) scale(0.7);" viewBox="0 0 140 200"><use href="#bananaPlant"/></svg>
+  <!-- scattered clown faces around the screen -->
+  <svg class="clown-doodle" style="top:6%; left:8%; transform:rotate(-8deg);" viewBox="0 0 120 120"><use href="#clownFace"/></svg>
+  <svg class="clown-doodle" style="top:10%; right:6%; transform:rotate(12deg) scale(0.8);" viewBox="0 0 120 120"><use href="#clownFace"/></svg>
+  <svg class="clown-doodle" style="bottom:8%; left:12%; transform:rotate(5deg) scale(1.1);" viewBox="0 0 120 120"><use href="#clownFace"/></svg>
+  <svg class="clown-doodle" style="bottom:6%; right:10%; transform:rotate(-15deg) scale(0.9);" viewBox="0 0 120 120"><use href="#clownFace"/></svg>
+  <svg class="clown-doodle" style="top:42%; left:3%; transform:rotate(3deg) scale(0.7);" viewBox="0 0 120 120"><use href="#clownFace"/></svg>
 
   <div class="content">
     <!-- laughing face -->
@@ -106,18 +88,6 @@
       <path d="M115 85 Q130 68 145 85" fill="none" stroke="#222" stroke-width="6" stroke-linecap="round"/>
       <ellipse cx="100" cy="138" rx="38" ry="26" fill="#222"/>
       <ellipse cx="100" cy="150" rx="18" ry="10" fill="#e57373"/>
-    </svg>
-
-    <!-- drawn clown face -->
-    <svg id="clown" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="15" cy="42" r="15" fill="#ff7043"/>
-      <circle cx="105" cy="42" r="15" fill="#ff7043"/>
-      <circle cx="60" cy="10" r="15" fill="#ff7043"/>
-      <circle cx="60" cy="60" r="42" fill="#fff5e1" stroke="#222" stroke-width="3"/>
-      <circle cx="42" cy="55" r="5" fill="#222"/>
-      <circle cx="78" cy="55" r="5" fill="#222"/>
-      <circle cx="60" cy="70" r="10" fill="#e53935"/>
-      <path d="M35 85 Q60 110 85 85" fill="none" stroke="#e53935" stroke-width="6" stroke-linecap="round"/>
     </svg>
   </div>
 

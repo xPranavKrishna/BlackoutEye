@@ -35,15 +35,13 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-family: -apple-system, sans-serif;
-    color: #222;
     display: flex;
   }
   .content svg#face {
-    width: 140px; height: 140px; margin-bottom: 16px;
+    width: 140px; height: 140px; margin-bottom: 12px;
   }
-  .content p {
-    font-size: 20px; font-weight: 600; margin: 0; padding: 0 20px;
+  .content svg#clown {
+    width: 80px; height: 80px;
   }
   #status {
     position: fixed; bottom: 12px; left: 12px; color: #0f0;
@@ -101,16 +99,26 @@
   <svg class="banana-tree" style="top:42%; left:3%; transform:rotate(3deg) scale(0.7);" viewBox="0 0 140 200"><use href="#bananaPlant"/></svg>
 
   <div class="content">
+    <!-- laughing face -->
     <svg id="face" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <circle cx="100" cy="100" r="80" fill="none" stroke="#222" stroke-width="4"/>
-      <path d="M60 95 Q70 105 80 95" fill="none" stroke="#222" stroke-width="4" stroke-linecap="round"/>
-      <path d="M120 95 Q130 105 140 95" fill="none" stroke="#222" stroke-width="4" stroke-linecap="round"/>
-      <path d="M75 135 Q100 150 125 135" fill="none" stroke="#222" stroke-width="4" stroke-linecap="round"/>
-      <text x="140" y="55" font-size="20" fill="#222" font-family="sans-serif">Z</text>
-      <text x="155" y="40" font-size="16" fill="#222" font-family="sans-serif">z</text>
-      <text x="167" y="28" font-size="12" fill="#222" font-family="sans-serif">z</text>
+      <path d="M55 85 Q70 68 85 85" fill="none" stroke="#222" stroke-width="6" stroke-linecap="round"/>
+      <path d="M115 85 Q130 68 145 85" fill="none" stroke="#222" stroke-width="6" stroke-linecap="round"/>
+      <ellipse cx="100" cy="138" rx="38" ry="26" fill="#222"/>
+      <ellipse cx="100" cy="150" rx="18" ry="10" fill="#e57373"/>
     </svg>
-    <p>Ahh, nee oru VAAZHA 🤡</p>
+
+    <!-- drawn clown face -->
+    <svg id="clown" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="15" cy="42" r="15" fill="#ff7043"/>
+      <circle cx="105" cy="42" r="15" fill="#ff7043"/>
+      <circle cx="60" cy="10" r="15" fill="#ff7043"/>
+      <circle cx="60" cy="60" r="42" fill="#fff5e1" stroke="#222" stroke-width="3"/>
+      <circle cx="42" cy="55" r="5" fill="#222"/>
+      <circle cx="78" cy="55" r="5" fill="#222"/>
+      <circle cx="60" cy="70" r="10" fill="#e53935"/>
+      <path d="M35 85 Q60 110 85 85" fill="none" stroke="#e53935" stroke-width="6" stroke-linecap="round"/>
+    </svg>
   </div>
 
 </div>
